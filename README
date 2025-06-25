@@ -1,0 +1,230 @@
+````markdown
+# GreenVision App
+
+
+**GreenVision App** es una aplicación de visión por computadora diseñada para clasificar imágenes de residuos en categorías **reciclables** y **no reciclables**. Aprovecha una Red Neuronal Convolucional (CNN) entrenada con un conjunto de datos de imágenes de residuos de Kaggle y ofrece tanto una API REST como una interfaz web basada en Streamlit para obtener predicciones de forma rápida.
+
+---
+
+## Tabla de contenidos
+
+1. [Características](#características)
+2. [Demostración](#demostración)
+3. [Instalación](#instalación)
+4. [Uso](#uso)
+   - [Ejecutar localmente](#ejecutar-localmente)
+   - [Uso de la API](#uso-de-la-api)
+   - [Aplicación Streamlit](#aplicación-streamlit)
+5. [Entrenamiento del modelo](#entrenamiento-del-modelo)
+6. [Despliegue](#despliegue)
+   - [Desplegar la API](#desplegar-la-api)
+   - [Desplegar la aplicación](#desplegar-la-aplicación
+7. [Estructura del proyecto](#estructura-del-proyecto)
+8. [Mejoras futuras](#mejoras-futuras)
+9. [Contribuciones](#contribuciones)
+10. [Licencia](#licencia)
+11. [Contacto](#contacto)
+
+---
+
+## Características
+
+- Clasificación de imágenes en **reciclables** vs **no reciclables**
+- **API REST** para predicciones automatizadas
+- Interfaz web en **Streamlit** para una experiencia interactiva
+- Código modular para facilitar experimentación y extensión
+
+---
+
+## Demostración
+
+![Captura de pantalla de la app](ruta/al/screenshot.png)
+
+- **App web:** [https://tu-dominio-greenvision](https://tu-dominio-greenvision)
+- **API REST:** `https://tu-dominio-greenvision/api/predict`
+
+## Instalación
+
+1. **Clona el repositorio**
+   ```bash
+   git clone https://github.com/tu-usuario/greenvision-app.git
+   cd greenvision-app
+````
+
+2. **Crea y activa un entorno virtual**
+
+   ```bash
+   python3 -m venv venv
+   source venv/bin/activate
+   ```
+
+3. **Instala las dependencias**
+
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+---
+
+## Uso
+
+### Ejecutar localmente
+
+1. **Inicia la API**
+
+   ```bash
+   uvicorn api.main:app --reload
+   ```
+
+   * La API estará disponible en `http://127.0.0.1:8000`
+
+2. **Lanza la app de Streamlit**
+
+   ```bash
+   streamlit run app/streamlit_app.py
+   ```
+
+   * La aplicación se abrirá en tu navegador en `http://localhost:8501`
+
+### Uso de la API
+
+* **Endpoint de predicción**: `POST /predict`
+
+  * **Request**: envía un archivo de imagen
+  * **Response**:
+
+    ```json
+    {
+      "prediction": "reciclable",
+      "confidence": 0.87
+    }
+    ```
+
+### Aplicación Streamlit
+
+La interfaz de Streamlit te permite subir una imagen, ver la predicción del modelo y explorar ejemplos de entrada.
+
+---
+
+## Entrenamiento del modelo
+
+> **Nota:** Los pesos entrenados se encuentran en el directorio `models/`. Para reentrenar:
+
+1. **Prepara los datos**
+
+   ```bash
+   python src/data_preprocessing.py --dataset_path data/raw --output_path data/processed
+   ```
+
+2. **Entrena el modelo**
+
+   ```bash
+   python src/train_model.py --config configs/train_config.yaml
+   ```
+
+3. **Evalúa el modelo**
+
+   ```bash
+   python src/evaluate_model.py --model_path models/best_model.pth --test_data data/processed/test
+   ```
+
+---
+
+## Despliegue
+
+### Desplegar la API
+
+* **Opción 1:** Heroku
+* **Opción 2:** AWS Lambda + API Gateway
+* **Opción 3:** Docker en cualquier proveedor de nube
+
+*(Ver detalles en ********[DEPLOYMENT.md](DEPLOYMENT.md)********)*
+
+### Desplegar la aplicación Streamlit
+
+* **Opción 1:** Streamlit Community Cloud
+* **Opción 2:** Dockerized en DigitalOcean App Platform
+
+---
+
+## Estructura del proyecto
+
+```bash
+GreenVision-App/
+├── app/
+│   ├── __init__.py
+│   ├── main.py
+│   ├── model.py
+│   └── schemas.py
+├── data/
+│   ├── raw/
+│   └── labels.csv
+├── feedback/
+│   └── feedback_log.csv
+├── frontend/
+│   ├── app.js
+│   └── index.html
+├── models/
+│   └── greenvision.h5
+├── notebooks/
+│   └── GreenVisionModel.ipynb
+├── Vision_ml/  # entorno virtual
+│   ├── bin/
+│   ├── include/
+│   └── lib/
+├── pyvenv.cfg
+├── README.md
+└── vision_requirements.txt
+```
+
+GreenVision-App/
+├── app/
+│   └── streamlit\_app.py
+├── api/
+│   └── main.py
+├── configs/
+│   └── train\_config.yaml
+├── data/
+│   ├── raw/
+│   └── processed/
+├── models/
+│   └── best\_model.pth
+├── src/
+│   ├── data\_preprocessing.py
+│   ├── train\_model.py
+│   └── evaluate\_model.py
+├── requirements.txt
+├── README.md
+└── LICENSE
+
+```
+
+---
+
+## Mejoras futuras
+
+- Añadir **bucle de retroalimentación** para recopilar correcciones de usuarios y reentrenar el modelo
+- Mejorar UI/UX con **clasificación en tiempo real** de la cámara
+- Experimentar con arquitecturas avanzadas (p.ej., **EfficientNet**, **ResNeXt**)
+- Desplegar una versión para **dispositivos móviles**
+
+---
+
+## Contribuciones
+
+¡Las contribuciones son bienvenidas! Abre un issue o envía un pull request.
+
+---
+
+## Licencia
+
+Este proyecto está bajo la Licencia MIT. Revisa el archivo [LICENSE](LICENSE) para más detalles.
+
+---
+
+## Contacto
+
+Luis Torres – LinkedIn (https://www.linkedin.com/in/luis-antonio-torres-villalobos/) – luisantoniotv97@hotmail.com
+
+Enlace del proyecto: [https://github.com/tu-usuario/greenvision-app](https://github.com/tu-usuario/greenvision-app)
+```

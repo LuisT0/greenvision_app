@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>GreenVisionCam</title>
+  <style>
+    body { font-family: sans-serif; text-align: center; padding: 2rem; }
+    video, img { max-width: 100%; border-radius: 8px; }
+    button { margin: .5rem; padding: .5rem 1rem; border: none; background: #2ecc71; color: white; border-radius: 4px; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <h1>🌿 GreenVisionCam</h1>
+  <video id="cam" autoplay></video><br/>
+  <button id="snap">Tomar foto</button>
+  <canvas id="canvas" style="display:none;"></canvas>
+  <div id="result"></div>
+  <script src="app.js"></script>
+</body>
+</html>

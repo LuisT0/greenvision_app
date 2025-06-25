@@ -1,0 +1,7 @@
+# Entorno virtual
+Vision_ml/
+venv/
+
+# Modelos y datos pesados
+models/greenvision.h5
+data/raw/
